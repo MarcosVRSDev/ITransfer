@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #f5f5f5;
+  display: block;
+}
+
+.container-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  color: #4A74A4;
+  margin-bottom: 40px;
+}
+
+.container-header img {
+  height: 30vh;
+}
+
+.container-header h1 {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  font-weight: 500;
+}
+
+.input-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 80vw;
+}
+
+.form-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 100px;
+}
+
+.no-btn {
+  width: 63vw;
+}
+
+svg {
+  color: #FFF;
+}
+
+.btn:hover {
+
+}
+
+.search {
+  position: absolute;
+  content: 'Select some files';
+  border: 10px;
+  border-color: red;
+  margin-left: 212px;
+  width: 42px;
+  height: 38px;
+  z-index: 10;
+  color: black;
+  /*visibility: hidden;*/
+  opacity: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#btn-move {
+  margin-top: 60px;
+  margin-right: 40px;
+  height: 40px;
+  width: 100px;
+}
