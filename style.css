@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
 
 * {
   padding: 0;
@@ -14,8 +14,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Roboto', sans-serif;
-  color: #4A74A4;
+  font-family: "Roboto", sans-serif;
+  color: #4a74a4;
   margin-bottom: 40px;
 }
 
@@ -50,16 +50,15 @@ body {
 }
 
 svg {
-  color: #FFF;
+  color: #fff;
 }
 
 .btn:hover {
-
 }
 
 .search {
   position: absolute;
-  content: 'Select some files';
+  content: "Select some files";
   border: 10px;
   border-color: red;
   margin-left: 212px;
@@ -69,6 +68,10 @@ svg {
   color: black;
   /*visibility: hidden;*/
   opacity: 0;
+}
+
+#search-retorno {
+  visibility: hidden;
 }
 
 .container {
