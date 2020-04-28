@@ -22,13 +22,14 @@
       <h1 class="display-4">ITransfer®</h1>
     </div>
 
+    <label for="input-envio">Diretório dos arquivos: </label>
     <div class="input-group mb-3">
       <input
         type="text"
         id="input-envio"
         class="form-control"
-        placeholder="Diretório do arquivo"
-        aria-label="Diretório do arquivo"
+        placeholder="Diretório dos arquivos"
+        aria-label="Diretório dos arquivos"
         aria-describedby="button-path"
       />
       <div class="input-group-append">
@@ -59,6 +60,7 @@
           </svg>
         </button>
       </div>
+
       <input
         type="file"
         class="search"
@@ -67,20 +69,32 @@
         webkitdirectory
       />
     </div>
+    
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Tipo de envio:</label>
+      </div>
+      <select class="custom-select" id="process-type" onchange="changeDefaultFolder()">
+        <option value="1">Windows Mobile</option>
+        <option value="2">Android</option>
+        <option value="3">PC</option>
+      </select>
+    </div>
 
+    <label for="input-retorno">Diretório do dispositivo: </label>
     <div class="input-group mb-3">
       <input
         type="text"
         id="input-retorno"
         class="form-control"
-        placeholder="Diretório do coletor"
-        aria-label="Diretório do coletor"
+        placeholder="Diretório do dispositivo"
+        aria-label="Diretório do dispositivo"
         aria-describedby="button-path-coletor"
         disabled
       />
       <div class="input-group-append">
         <button
-          class="btn btn-secondary btn-lg"
+          class="btn btn-secondary"
           type="button"
           id="button-path-coletor"
           disabled
@@ -133,15 +147,12 @@
       </button>
     </div>
 
-    <script>
-      const { ipcRenderer } = require("electron");
-
-      function selectFolder() {
-        ipcRenderer.send("click-button", "true");
-      }
-
-      ipcRenderer.send("openFile", () => {});
-    </script>
+    <div id="modal-progress" class="modal-container">
+      <div id="progress-bar"  class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+      </div>
+    </div>
+    
     <script src="./src/action.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
