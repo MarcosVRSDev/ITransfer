@@ -1,5 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
-
+const { app, BrowserWindow, Menu, shell } = require("electron");
 
 let win;
  
@@ -7,11 +6,12 @@ function createWindow() {
   // Cria uma janela de navegação.
    win = new BrowserWindow({
     width: 600,
-    height: 550,
+    height: 680,
     minWidth: 600,
-    minHeight: 550,
+    minHeight: 680,
     maxHeight: 600,
-    maxWidth: 550,
+    maxWidth: 680,
+    icon: __dirname + "\\utils\\logo.svg",
     webPreferences: {
       nodeIntegration: true
     }
@@ -25,27 +25,46 @@ function createWindow() {
   //win.webContents.openDevTools();
 }
 
-ipcMain.on('openFile', (event, arg) => {
-  const { dialog } = require('electron');
-  const fs = require('fs');
-
-  ipcMain.on('click-button', (event, arg)=> {
-    if (arg === true) {
-      dialog.showOpenDialog(function (fileNames) {
-        if(fileNames === undefined) {
-          console.log("Nenhum arquivo selecionado")
-        } else {
-          console.log("Arquivo foi selecionado");
-        }
-      });
-    }
-  });
-});
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Algumas APIs podem ser usadas somente depois que este evento ocorre.
-app.whenReady().then(createWindow);
+app.whenReady().then(function () {
+  createWindow();
+
+  const template = [
+    {
+      label: 'Developers Menu',
+      submenu: [
+        { role: 'reload' },
+        { role: 'forcereload' },
+        { role: 'toggledevtools' },
+        { type: 'separator' },
+        { role: 'resetzoom' },
+      ]
+    },
+    {
+      label: 'Ajuda',
+      submenu: [{ 
+          label: 'Fale Conosco',
+          click: function() {
+          shell.openExternal('https://inovamobil.com.br/atendimento-online/');
+        }
+      }]
+    },
+    {
+      label: 'Sobre',
+      submenu: [{ 
+          label: 'Sobre a empresa',
+          click: function() {
+          shell.openExternal('https://inovamobil.com.br/empresa/');
+        }
+      }]
+    }
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+});
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {

@@ -30,6 +30,10 @@ body {
   font-weight: 500;
 }
 
+label {
+  margin-left: 100px;
+}
+
 .input-group {
   display: flex;
   justify-content: center;
@@ -85,4 +89,26 @@ svg {
   margin-right: 40px;
   height: 40px;
   width: 100px;
+}
+
+.modal-container {
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 15;
+}
+
+.modal-container.show {
+  display: flex;
+}
+
+#progress-bar {
+  display: flex;
+  width: 50vw;
 }
