@@ -173,19 +173,14 @@
     </div>
 
     <div id="modal-progress" class="modal-container">
-      <div id="progress-bar" class="progress">
-        <div
-          class="progress-bar progress-bar-striped progress-bar-animated"
-          role="progressbar"
-          aria-valuenow="75"
-          aria-valuemin="0"
-          aria-valuemax="100"
-          style="width: 100%;"
-        ></div>
+      <div id="progress-bar" class="container-spinner">
+        <div id="spinner" class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
     </div>
 
-    <div id="modal-settings" class="modal-container" onclick="closeSetting()">
+    <div id="modal-settings" class="modal-container">
       <div id="modal-setting" class="modal-setting-content">
         <div class="modal-header">
           <span id="modal-title">
@@ -206,7 +201,7 @@
             </svg>
             Configurações</span
           >
-          <a href="#" class="js-close-modal">X</a>
+          <a href="#" class="js-close-modal" onclick="closeSetting()">X</a>
         </div>
       </div>
     </div>
