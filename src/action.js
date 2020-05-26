@@ -1,6 +1,7 @@
-const moveFile = require("move-file");
 const path = require("path");
 const cmd = require("node-command-line");
+const axios = require("axios");
+const fs = require("fs");
 Promise = require("bluebird");
 
 //Dirétorios
@@ -9,6 +10,7 @@ let inputEnvio = document.querySelector("#input-envio");
 let inputRetorno = document.querySelector("#input-retorno");
 let defaultWM = "Program Files/";
 let defaultAndroid = "/sdcard/";
+let inputHDN = document.querySelector("#inputHDN");
 
 //Elementos na DOM
 let inputArquivo = document.querySelector("#input-arquivo");
@@ -17,6 +19,7 @@ let searchRetorno = document.querySelector("#search-retorno");
 let modalProgress = document.querySelector("#modal-progress");
 let modalSetting = document.querySelector("#modal-settings");
 let processType = document.querySelector("#process-type");
+let btnRecieve = document.querySelector("#btn-recieve");
 
 //Trás os diretórios salvos em LocalStorage ao abrir o sistema
 populateUI();
@@ -112,6 +115,8 @@ function getFile() {
         // if success get stdout info in message. like response.message
         alert("Arquivo recebido com sucesso!\n" + response.message);
         modalProgress.classList.remove("show");
+      } else if (processType.value == 3) {
+      } else if (processType.value == 4) {
       } else {
         // if not success get error message and stdErr info as error and stdErr.
         //like response.error and response.stdErr
@@ -133,12 +138,22 @@ function getFile() {
 function changeDefaultFolder() {
   if (processType.value == 1) {
     inputRetorno.value = defaultWM;
+    inputHDN.setAttribute("disabled", "");
+    btnRecieve.removeAttribute("disabled");
     localStorage.setItem("inputRetorno", inputRetorno.value);
     localStorage.setItem("progressType", processType.value);
   } else if (processType.value == 2) {
     inputRetorno.value = defaultAndroid;
+    inputHDN.setAttribute("disabled", "");
+    btnRecieve.removeAttribute("disabled");
     localStorage.setItem("inputRetorno", inputRetorno.value);
     localStorage.setItem("progressType", processType.value);
+  } else if (processType.value == 3) {
+    inputHDN.removeAttribute("disabled");
+    btnRecieve.setAttribute("disabled", "");
+  } else if (processType.value == 4) {
+    btnRecieve.setAttribute("disabled", "");
+    inputHDN.removeAttribute("disabled");
   } else {
     inputRetorno.value = "";
   }
@@ -159,3 +174,27 @@ function populateUI() {
   inputRetorno.value = localStorage.getItem("inputRetorno");
   processType.value = localStorage.getItem("progressType");
 }
+
+//FUNCIONALIDADE DE TESTE
+async function getSyspalmHDN(hdn) {
+  try {
+    const response = await axios.get(
+      `https://api.imanager.inovamobil.com.br/api/protecao/Exportacao/Licencas/${hdn}/1`
+    );
+    console.log(response.data);
+    fs.writeFile(
+      "C:\\Users\\Nova\\Desktop\\teste\\SysPalm.01",
+      response.data,
+      function (err) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("Arquivo salvo com sucesso!");
+      }
+    );
+  } catch (err) {
+    console.warn("Código HDN inválido");
+  }
+}
+
+getSyspalmHDN(2555);

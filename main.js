@@ -1,22 +1,21 @@
 const { app, BrowserWindow, Menu, shell } = require("electron");
 
 let win;
- 
+
 function createWindow() {
   // Cria uma janela de navegação.
-   win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 600,
-    height: 680,
+    height: 500,
     minWidth: 600,
-    minHeight: 680,
+    minHeight: 500,
     maxHeight: 600,
-    maxWidth: 680,
+    maxWidth: 500,
     icon: __dirname + "\\utils\\logo.svg",
     webPreferences: {
-      nodeIntegration: true
-    }
+      nodeIntegration: true,
+    },
   });
-
 
   // and load the index.html of the app.
   win.loadFile("index.html");
@@ -33,33 +32,37 @@ app.whenReady().then(function () {
 
   const template = [
     {
-      label: 'Developers Menu',
+      label: "Developers Menu",
       submenu: [
-        { role: 'reload' },
-        { role: 'forcereload' },
-        { role: 'toggledevtools' },
-        { type: 'separator' },
-        { role: 'resetzoom' },
-      ]
+        { role: "reload" },
+        { role: "forcereload" },
+        { role: "toggledevtools" },
+        { type: "separator" },
+        { role: "resetzoom" },
+      ],
     },
     {
-      label: 'Ajuda',
-      submenu: [{ 
-          label: 'Fale Conosco',
-          click: function() {
-          shell.openExternal('https://inovamobil.com.br/atendimento-online/');
-        }
-      }]
+      label: "Ajuda",
+      submenu: [
+        {
+          label: "Fale Conosco",
+          click: function () {
+            shell.openExternal("https://inovamobil.com.br/atendimento-online/");
+          },
+        },
+      ],
     },
     {
-      label: 'Sobre',
-      submenu: [{ 
-          label: 'Sobre a empresa',
-          click: function() {
-          shell.openExternal('https://inovamobil.com.br/empresa/');
-        }
-      }]
-    }
+      label: "Sobre",
+      submenu: [
+        {
+          label: "Sobre a empresa",
+          click: function () {
+            shell.openExternal("https://inovamobil.com.br/empresa/");
+          },
+        },
+      ],
+    },
   ];
 
   const menu = Menu.buildFromTemplate(template);

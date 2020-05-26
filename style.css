@@ -93,9 +93,6 @@ svg {
   color: #fff;
 }
 
-.btn:hover {
-}
-
 .search {
   position: absolute;
   content: "Select some files";
@@ -120,7 +117,8 @@ svg {
   align-items: center;
 }
 
-#btn-move {
+#btn-send,
+#btn-recieve {
   margin-top: 60px;
   margin-right: 40px;
   height: 40px;
@@ -189,4 +187,13 @@ svg {
   height: 80vh;
   background-color: white;
   z-index: 20;
+}
+
+#modal-setting .setting-content {
+  margin-top: 20px;
+  margin-right: 100px;
+}
+
+#inputHDN {
+  margin-top: 15px;
 }
