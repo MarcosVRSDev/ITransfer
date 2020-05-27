@@ -11,6 +11,8 @@ let inputRetorno = document.querySelector("#input-retorno");
 let defaultWM = "Program Files/";
 let defaultAndroid = "/sdcard/";
 let inputHDN = document.querySelector("#inputHDN");
+let dirSysPalm = document.querySelector("#dirSysPalm");
+dirSysPalm.value = __dirname + "\\essentials";
 
 //Elementos na DOM
 let inputArquivo = document.querySelector("#input-arquivo");
@@ -33,6 +35,27 @@ searchRetorno.addEventListener("change", (event) => {
   let newPath = path.dirname(searchRetorno.files[0].path);
   inputRetorno.value = newPath;
 });
+
+async function getSyspalmHDN(hdn) {
+  try {
+    const response = await axios.get(
+      `https://api.imanager.inovamobil.com.br/api/protecao/Exportacao/Licencas/${hdn}/1`
+    );
+    console.log(response.data);
+    fs.writeFile(
+      __dirname + "\\essentials\\SysPalm.01",
+      response.data,
+      function (err) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("Arquivo salvo com sucesso!");
+      }
+    );
+  } catch (err) {
+    console.warn("Código HDN inválido");
+  }
+}
 
 //Enviar arquivo
 function sendFile() {
@@ -73,6 +96,12 @@ function sendFile() {
         modalProgress.classList.remove("show");
       }
     })();
+  } else if (processType.value == 3) {
+    getSyspalmHDN(inputHDN.value);
+    modalProgress.classList.remove("show");
+  } else if (processType.value == 4) {
+    getSyspalmHDN(inputHDN.value);
+    modalProgress.classList.remove("show");
   } else {
     alert("Processo de envio ainda não disponível.");
     modalProgress.classList.remove("show");
@@ -115,8 +144,6 @@ function getFile() {
         // if success get stdout info in message. like response.message
         alert("Arquivo recebido com sucesso!\n" + response.message);
         modalProgress.classList.remove("show");
-      } else if (processType.value == 3) {
-      } else if (processType.value == 4) {
       } else {
         // if not success get error message and stdErr info as error and stdErr.
         //like response.error and response.stdErr
@@ -135,7 +162,7 @@ function getFile() {
 }
 
 //Função para mudar a informação de diretório de acordo com tipo de processo de envio escolhido (Versão 1.0 o diretório é encapsulado no código)
-function changeDefaultFolder() {
+function changeProcessType() {
   if (processType.value == 1) {
     inputRetorno.value = defaultWM;
     inputHDN.setAttribute("disabled", "");
@@ -173,28 +200,5 @@ function populateUI() {
   inputEnvio.value = localStorage.getItem("inputEnvio");
   inputRetorno.value = localStorage.getItem("inputRetorno");
   processType.value = localStorage.getItem("progressType");
+  changeProcessType();
 }
-
-//FUNCIONALIDADE DE TESTE
-async function getSyspalmHDN(hdn) {
-  try {
-    const response = await axios.get(
-      `https://api.imanager.inovamobil.com.br/api/protecao/Exportacao/Licencas/${hdn}/1`
-    );
-    console.log(response.data);
-    fs.writeFile(
-      "C:\\Users\\Nova\\Desktop\\teste\\SysPalm.01",
-      response.data,
-      function (err) {
-        if (err) {
-          return console.log(err);
-        }
-        console.log("Arquivo salvo com sucesso!");
-      }
-    );
-  } catch (err) {
-    console.warn("Código HDN inválido");
-  }
-}
-
-getSyspalmHDN(2555);

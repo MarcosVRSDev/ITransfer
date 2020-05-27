@@ -50,7 +50,7 @@
       <select
         class="custom-select"
         id="process-type"
-        onchange="changeDefaultFolder()"
+        onchange="changeProcessType()"
       >
         <option value="1">Arquivos - WM</option>
         <option value="2">Arquivos - Android</option>
@@ -220,6 +220,16 @@
               webkitdirectory
             />
           </div>
+
+          <label for="input-retorno">Diretório do arquivo SysPalm: </label>
+          <input
+              type="text"
+              id="dirSysPalm"
+              class="form-control no-btn"
+              aria-label="Diretório arquivo SysPalm.01"
+              aria-describedby="button-path"
+              disabled
+          />
         </div>
       </div>
     </div>
