@@ -96,8 +96,26 @@ function sendFile() {
         modalProgress.classList.remove("show");
       }
     })();
+    //ENVIO SYSPALM WM
   } else if (processType.value == 3) {
     getSyspalmHDN(inputHDN.value);
+
+    Promise.coroutine(function* () {
+      let response = yield cmd.run(
+        `${externalFolder}ConsoleApp1.exe -WM -E "${__dirname}\\essentials\\" "${defaultWM}SysPalm.01"`
+      );
+      if (response.success) {
+        // do something
+        // if success get stdout info in message. like response.message
+        alert("Arquivo enviado com sucesso!\n" + response.message);
+        modalProgress.classList.remove("show");
+      } else {
+        // if not success get error message and stdErr info as error and stdErr.
+        //like response.error and response.stdErr
+        alert("Não foi possível enviar o arquivo. Motivo: " + response.error);
+        modalProgress.classList.remove("show");
+      }
+    })();
     modalProgress.classList.remove("show");
   } else if (processType.value == 4) {
     getSyspalmHDN(inputHDN.value);
@@ -109,7 +127,7 @@ function sendFile() {
 
   localStorage.setItem("inputEnvio", inputEnvio.value);
   localStorage.setItem("inputRetorno", inputRetorno.value);
-  localStorage.setItem("progressType", processType.value);
+  localStorage.setItem("processType", processType.value);
 }
 
 //Receber arquivo
@@ -158,7 +176,7 @@ function getFile() {
 
   localStorage.setItem("inputEnvio", inputEnvio.value);
   localStorage.setItem("inputRetorno", inputRetorno.value);
-  localStorage.setItem("progressType", processType.value);
+  localStorage.setItem("processType", processType.value);
 }
 
 //Função para mudar a informação de diretório de acordo com tipo de processo de envio escolhido (Versão 1.0 o diretório é encapsulado no código)
@@ -168,13 +186,13 @@ function changeProcessType() {
     inputHDN.setAttribute("disabled", "");
     btnRecieve.removeAttribute("disabled");
     localStorage.setItem("inputRetorno", inputRetorno.value);
-    localStorage.setItem("progressType", processType.value);
+    localStorage.setItem("processType", processType.value);
   } else if (processType.value == 2) {
     inputRetorno.value = defaultAndroid;
     inputHDN.setAttribute("disabled", "");
     btnRecieve.removeAttribute("disabled");
     localStorage.setItem("inputRetorno", inputRetorno.value);
-    localStorage.setItem("progressType", processType.value);
+    localStorage.setItem("processType", processType.value);
   } else if (processType.value == 3) {
     inputHDN.removeAttribute("disabled");
     btnRecieve.setAttribute("disabled", "");
@@ -199,6 +217,6 @@ function closeSetting() {
 function populateUI() {
   inputEnvio.value = localStorage.getItem("inputEnvio");
   inputRetorno.value = localStorage.getItem("inputRetorno");
-  processType.value = localStorage.getItem("progressType");
+  processType.value = localStorage.getItem("processType");
   changeProcessType();
 }
